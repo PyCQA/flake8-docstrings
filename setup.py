@@ -38,6 +38,4 @@ setup(name='flake8-docstrings',
                     'D = flake8_docstrings:_pep257.pep257Checker',
                     ],
                     },
-      py_modules=['pep257'],
-      install_requires=['flake8', 'pep257'],
-      tests_require=['mock==0.8'])
+      install_requires=['flake8', 'pep257'])
