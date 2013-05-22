@@ -22,10 +22,12 @@ class pep257Checker(object):
         """Use directly check_source api from pep257."""
         self.messages = list()
         with open(self.filename, 'r') as fd:
-            for elem in pep257.check_source(fd.read(, self.filename):
+            for elem in pep257.check_source(fd.read(), self.filename):
                 self.messages.append(str(elem))
 
         for m in self.messages:
             log_mess = m.split(':')
+            import pdb
+            pdb.set_trace()
             yield (int(log_mess[1]), int(log_mess[2]), log_mess[3].strip(),
                    type(self))

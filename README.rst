@@ -10,5 +10,7 @@ Simply install this extension::
 
 and run flake8.
 
+There are no error numbers to print or ignore.
+
 .. _pep257: https://github.com/GreenSteam/pep257
 .. _flake8: https://bitbucket.org/tarek/flake8
