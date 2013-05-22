@@ -1,7 +1,14 @@
 flake8-docstrings
 =================
 
-An initial attempt to add pep257_ support to flake8_
+A simple module that adds an extension for the fantastic pep257_ tool to 
+flake8_.
+
+Simply install this extension::
+
+    pip install flake8_docstrings
+
+and run flake8.
 
 .. _pep257: https://github.com/GreenSteam/pep257
 .. _flake8: https://bitbucket.org/tarek/flake8
