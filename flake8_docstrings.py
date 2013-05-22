@@ -27,7 +27,5 @@ class pep257Checker(object):
 
         for m in self.messages:
             log_mess = m.split(':')
-            import pdb
-            pdb.set_trace()
-            yield (int(log_mess[1]), int(log_mess[2]), log_mess[3].strip(),
+            yield (int(log_mess[1]), int(log_mess[2]), log_mess[3][8:],
                    type(self))
