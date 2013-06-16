@@ -1,6 +1,11 @@
 History/Changelog
 =================
 
+0.1.2
+-----
+
+- Actually fix the PyPI release. **Ugh**
+
 0.1.1
 -----
 
