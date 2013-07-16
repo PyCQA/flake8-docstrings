@@ -45,4 +45,5 @@ setup(
                   },
     install_requires=['flake8', 'pep257'],
     provides=['flake8_docstrings'],
+    py_modules=['flake8_docstrings'],
 )
