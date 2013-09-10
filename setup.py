@@ -40,7 +40,7 @@ setup(
                  'License :: OSI Approved :: MIT License'],
     keywords='PEP 257, pep257, docstrings, flake8',
     entry_points={'flake8.extension': [
-                  'D = flake8_docstrings:pep257Checker',
+                  'DOC = flake8_docstrings:pep257Checker',
                   ],
                   },
     install_requires=['flake8', 'pep257'],

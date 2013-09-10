@@ -4,7 +4,7 @@ included as module into flakes8
 """
 import pep257
 
-__version__ = '0.1.2'
+__version__ = '0.1.3'
 
 
 class pep257Checker(object):
@@ -27,5 +27,5 @@ class pep257Checker(object):
 
         for m in self.messages:
             log_mess = m.split(':')
-            yield (int(log_mess[1]), int(log_mess[2]), log_mess[3][8:],
+            yield (int(log_mess[1]), int(log_mess[2]), 'DOC0' + log_mess[3],
                    type(self))
