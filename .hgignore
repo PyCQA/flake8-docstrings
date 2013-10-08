@@ -2,3 +2,4 @@ syntax: glob
 *.pyc
 *.orig
 flake8_docstrings.egg-info
+dist/

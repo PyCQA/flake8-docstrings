@@ -1,6 +1,11 @@
 History/Changelog
 =================
 
+0.1.3
+-----
+
+- Really fix the installation issue this time.
+
 0.1.2
 -----
 
