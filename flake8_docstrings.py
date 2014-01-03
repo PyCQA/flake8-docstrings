@@ -4,7 +4,7 @@ included as module into flakes8
 """
 import pep257
 
-__version__ = '0.1.3'
+__version__ = '0.1.4'
 
 
 class pep257Checker(object):

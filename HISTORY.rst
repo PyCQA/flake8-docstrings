@@ -1,6 +1,11 @@
 History/Changelog
 =================
 
+0.1.4
+-----
+
+- Stop truncating error messages
+
 0.1.3
 -----
 
