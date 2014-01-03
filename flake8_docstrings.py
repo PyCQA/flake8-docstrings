@@ -27,5 +27,5 @@ class pep257Checker(object):
 
         for m in self.messages:
             log_mess = m.split(':')
-            yield (int(log_mess[1]), int(log_mess[2]), log_mess[3][8:],
+            yield (int(log_mess[1]), int(log_mess[2]), 'DOC0' + log_mess[3],
                    type(self))
