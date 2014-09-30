@@ -4,7 +4,7 @@ included as module into flakes8
 """
 import pep257
 
-__version__ = '0.2.0'
+__version__ = '0.2.1'
 
 
 class pep257Checker(object):
@@ -19,12 +19,8 @@ class pep257Checker(object):
         self.filename = filename
 
     def run(self):
-        """Use directly check_source api from pep257."""
-        errors = list()
-        with open(self.filename, 'r') as handle:
-            for error in pep257.PEP257Checker().check_source(
-                    handle.read(), self.filename):
-                errors.append(error)
-
-        for error in errors:
-            yield (error.line, 0, error.message, type(self))
+        """Use directly check() api from pep257."""
+        for error in pep257.check([self.filename]):
+            # Ignore AllError, Environment error.
+            if isinstance(error, pep257.Error):
+                yield (error.line, 0, error.message, type(self))
