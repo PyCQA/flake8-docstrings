@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """pep257 docstrings convention needs error code and class parser for be
-included as module into flakes8
+included as module into flake8
 """
 import pep257
 

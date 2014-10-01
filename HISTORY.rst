@@ -1,6 +1,12 @@
 History/Changelog
 =================
 
+0.2.1
+-----
+
+- Prevent AllError or EnvironmentErrors from being raised. Thanks Alex
+  Pyrgiotis.
+
 0.2.0
 -----
 
