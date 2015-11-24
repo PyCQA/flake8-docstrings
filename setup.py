@@ -31,7 +31,7 @@ setup(
     author_email='sandre@anybox.fr',
     maintainer='Ian Cordasco',
     maintainer_email='graffatcolmingov@gmail.com',
-    url='https://bitbucket.org/icordasc/flake8-docstrings',
+    url='https://gitlab.com/pycqa/flake8-docstrings',
     classifiers=['Intended Audience :: Developers',
                  'Environment :: Console',
                  'Programming Language :: Python :: 2',
@@ -39,10 +39,11 @@ setup(
                  'Operating System :: OS Independent',
                  'License :: OSI Approved :: MIT License'],
     keywords='PEP 257, pep257, docstrings, flake8',
-    entry_points={'flake8.extension': [
-                  'DOC = flake8_docstrings:pep257Checker',
-                  ],
-                  },
+    entry_points={
+        'flake8.extension': [
+            'DOC = flake8_docstrings:pep257Checker',
+        ],
+    },
     install_requires=['flake8', 'pep257'],
     provides=['flake8_docstrings'],
     py_modules=['flake8_docstrings'],
