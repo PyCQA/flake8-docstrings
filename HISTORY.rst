@@ -1,6 +1,13 @@
 History/Changelog
 =================
 
+0.2.3
+-----
+
+- Remove extraneous space in error message.
+
+- Fix up how the plugin displays with ``flake8 --version``.
+
 0.2.2
 -----
 

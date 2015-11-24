@@ -9,7 +9,7 @@ import io
 import pep8
 import pep257
 
-__version__ = '0.2.2'
+__version__ = '0.2.3'
 
 
 class pep257Checker(object):
