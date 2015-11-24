@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-"""pep257 docstrings convention needs error code and class parser for be
+"""Implementation of pep257 integration with Flake8.
+
+pep257 docstrings convention needs error code and class parser for be
 included as module into flake8
 """
 import io
@@ -11,15 +13,15 @@ __version__ = '0.2.2'
 
 
 class pep257Checker(object):
+    """Flake8 needs a class to check python file."""
 
-    """flake8 needs a class to check python file."""
-
-    name = 'pep257'
-    version = __version__
+    name = 'flake8-docstrings'
+    version = __version__ + ', pep257: {0}'.format(pep257.__version__)
 
     STDIN_NAMES = set(['stdin', '-', '(none)', None])
 
     def __init__(self, tree, filename='(none)', builtins=None):
+        """Placeholder."""
         self.tree = tree
         self.filename = filename
         self.source = self.load_source()
@@ -35,6 +37,7 @@ class pep257Checker(object):
                 yield (error.line, 0, message, type(self))
 
     def load_source(self):
+        """Load the source for the specified file."""
         if self.filename in self.STDIN_NAMES:
             self.filename = 'stdin'
             self.source = pep8.stdin_get_value()
