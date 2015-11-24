@@ -30,7 +30,9 @@ class pep257Checker(object):
         for error in self.checker.check_source(self.source, self.filename):
             # Ignore AllError, Environment error.
             if isinstance(error, pep257.Error):
-                yield (error.line, 0, error.message, type(self))
+                # NOTE(sigmavirus24): Fixes GitLab#3
+                message = '%s %s' % (error.code, error.short_desc)
+                yield (error.line, 0, message, type(self))
 
     def load_source(self):
         if self.filename in self.STDIN_NAMES:
