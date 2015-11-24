@@ -1,6 +1,11 @@
 History/Changelog
 =================
 
+0.2.2
+-----
+
+- Better support for input provided via stdin.
+
 0.2.1
 -----
 
