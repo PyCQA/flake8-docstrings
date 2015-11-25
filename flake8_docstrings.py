@@ -24,8 +24,8 @@ class pep257Checker(object):
         """Placeholder."""
         self.tree = tree
         self.filename = filename
-        self.source = self.load_source()
         self.checker = pep257.PEP257Checker()
+        self.load_source()
 
     def run(self):
         """Use directly check() api from pep257."""
