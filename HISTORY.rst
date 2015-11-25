@@ -1,6 +1,12 @@
 History/Changelog
 =================
 
+0.2.4
+-----
+
+- Fix bug introduced in 0.2.2 where the file source was always None causing
+  D100 and D104 errors for all files and no other errors to be found.
+
 0.2.3
 -----
 
