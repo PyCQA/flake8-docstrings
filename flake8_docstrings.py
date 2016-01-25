@@ -4,8 +4,6 @@
 pep257 docstrings convention needs error code and class parser for be
 included as module into flake8
 """
-import io
-
 import pep8
 import pep257
 
@@ -51,5 +49,5 @@ class pep257Checker(object):
             self.filename = 'stdin'
             self.source = pep8.stdin_get_value()
         else:
-            with io.open(self.filename, encoding='utf-8') as fd:
+            with pep257.tokenize_open(self.filename, encoding='utf-8') as fd:
                 self.source = fd.read()
