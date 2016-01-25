@@ -29,9 +29,11 @@ class pep257Checker(object):
 
     def run(self):
         """Use directly check() api from pep257."""
+        checked_codes = pep257.conventions.pep257
         for error in self.checker.check_source(self.source, self.filename):
+            code = error.code
             # Ignore AllError, Environment error.
-            if isinstance(error, pep257.Error):
+            if isinstance(error, pep257.Error) and code in checked_codes:
                 # NOTE(sigmavirus24): Fixes GitLab#3
                 message = '%s %s' % (error.code, error.short_desc)
                 yield (error.line, 0, message, type(self))
