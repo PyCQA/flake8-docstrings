@@ -7,7 +7,7 @@ included as module into flake8
 import pep8
 import pep257
 
-__version__ = '0.2.4'
+__version__ = '0.2.5'
 __all__ = ['pep257Checker']
 
 

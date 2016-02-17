@@ -1,6 +1,11 @@
 History/Changelog
 =================
 
+0.2.5
+-----
+
+- Use pep257's ``tokenize_open`` function to pass input to the tool
+
 0.2.4
 -----
 
