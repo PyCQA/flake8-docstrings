@@ -49,5 +49,5 @@ class pep257Checker(object):
             self.filename = 'stdin'
             self.source = pep8.stdin_get_value()
         else:
-            with pep257.tokenize_open(self.filename, encoding='utf-8') as fd:
+            with pep257.tokenize_open(self.filename) as fd:
                 self.source = fd.read()
