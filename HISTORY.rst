@@ -4,7 +4,10 @@ History/Changelog
 0.2.5
 -----
 
-- Use pep257's ``tokenize_open`` function to pass input to the tool
+- Use pep257's ``tokenize_open`` function to pass input to the tool.
+
+- Use pep257's conventions so any error codes that are ignored by default
+  using ``pep257`` are also ignored by default with this plugin.
 
 0.2.4
 -----
