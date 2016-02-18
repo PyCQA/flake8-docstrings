@@ -4,11 +4,31 @@
 pep257 docstrings convention needs error code and class parser for be
 included as module into flake8
 """
-import pep8
-import pep257
+import sys
 
-__version__ = '0.2.5'
+import pep8
+try:
+    import pycodestyle as pep257
+except ImportError:
+    import pep257
+
+__version__ = '0.2.6'
 __all__ = ['pep257Checker']
+
+
+class EnvironError(pep257.Error):
+    code = 'D998'
+    context = None
+
+    @property
+    def short_desc(self):
+        return sys.exc_info()[1]
+
+
+class AllError(pep257.Error):
+    code = 'D999'
+    short_desc = '__all__ was found to be a list or other mutable collection'
+    context = None
 
 
 class pep257Checker(object):
@@ -26,18 +46,18 @@ class pep257Checker(object):
         self.checker = pep257.PEP257Checker()
         self.load_source()
 
+    def _check_source(self):
+        try:
+            return list(self.checker.check_source(self.source, self.filename))
+        except pep257.AllError as err:
+            return [AllError(err)]
+        except EnvironmentError as err:
+            return [EnvironError(err)]
+
     def run(self):
         """Use directly check() api from pep257."""
-        try:
-            return self._run()
-        except (pep257.EnvironmentError, pep257.AllError) as err:
-            message = 'D999 %s' % err
-            return iter([(1, 0, message, type(self))])
-
-    def _run(self):
         checked_codes = pep257.conventions.pep257
-        for error in self.checker.check_source(self.source, self.filename):
-            # Ignore AllError, Environment error.
+        for error in self._check_source():
             if isinstance(error, pep257.Error) and error.code in checked_codes:
                 # NOTE(sigmavirus24): Fixes GitLab#3
                 message = '%s %s' % (error.code, error.short_desc)
