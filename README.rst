@@ -10,7 +10,8 @@ Simply install this extension::
 
 and run flake8.
 
-There are no error numbers to print or ignore.
+Report any issues on our `bug tracker`_.
 
-.. _pep257: https://github.com/GreenSteam/pep257
-.. _flake8: https://bitbucket.org/tarek/flake8
+.. _pep257: https://github.com/pycqa/pydocstyle
+.. _flake8: https://gitlab.com/pycqa/flake8
+.. _bug tracker: https://gitlab.com/pycqa/flake8-docstrings/issues

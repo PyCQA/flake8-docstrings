@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-"""`flake8-docstring` lives on
-`Bitbucket <https://bitbucket.org/icordasc/flake8-docstrings>`_.
+"""``flake8-docstring`` lives on
+`GitLab <https://gitlab.com/pycqa/flake8-docstrings>`_.
 """
 
 from setuptools import setup
@@ -26,7 +26,7 @@ setup(
     version=get_version(),
     description="Extension for flake8 which uses pep257 to check docstrings",
     long_description=get_long_description(),
-    license=open('LICENSE').read(),
+    license='MIT License',
     author='Simon ANDRÉ',
     author_email='sandre@anybox.fr',
     maintainer='Ian Cordasco',

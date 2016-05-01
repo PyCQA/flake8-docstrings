@@ -1,6 +1,13 @@
 History/Changelog
 =================
 
+0.2.6
+-----
+
+- Respect pep257's default ignore list
+
+- Handle AllError and other exceptions from pep257
+
 0.2.5
 -----
 
