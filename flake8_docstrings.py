@@ -8,15 +8,17 @@ import sys
 
 import pep8
 try:
-    import pycodestyle as pydocstyle
+    import pydocstyle as pep257
+    module_name = 'pydocstyle'
 except ImportError:
-    import pydocstyle
+    import pep257
+    module_name = 'pep257'
 
-__version__ = '0.2.6'
-__all__ = ['pydocstyleChecker']
+__version__ = '1.0.0'
+__all__ = ['pep257Checker']
 
 
-class EnvironError(pydocstyle.Error):
+class EnvironError(pep257.Error):
     code = 'D998'
     context = None
 
@@ -25,17 +27,19 @@ class EnvironError(pydocstyle.Error):
         return sys.exc_info()[1]
 
 
-class AllError(pydocstyle.Error):
+class AllError(pep257.Error):
     code = 'D999'
     short_desc = '__all__ was found to be a list or other mutable collection'
     context = None
 
 
-class pydocstyleChecker(object):
+class pep257Checker(object):
     """Flake8 needs a class to check python file."""
 
     name = 'flake8-docstrings'
-    version = __version__ + ', pydocstyle: {0}'.format(pydocstyle.__version__)
+    version = __version__ + ', {0}: {1}'.format(
+        module_name, pep257.__version__
+    )
 
     STDIN_NAMES = set(['stdin', '-', '(none)', None])
 
@@ -43,22 +47,22 @@ class pydocstyleChecker(object):
         """Placeholder."""
         self.tree = tree
         self.filename = filename
-        self.checker = pydocstyle.PEP257Checker()
+        self.checker = pep257.PEP257Checker()
         self.load_source()
 
     def _check_source(self):
         try:
             return list(self.checker.check_source(self.source, self.filename))
-        except pydocstyle.AllError as err:
+        except pep257.AllError as err:
             return [AllError(err)]
         except EnvironmentError as err:
             return [EnvironError(err)]
 
     def run(self):
         """Use directly check() api from pydocstyle."""
-        checked_codes = pydocstyle.conventions.pep257
+        checked_codes = pep257.conventions.pep257
         for error in self._check_source():
-            if isinstance(error, pydocstyle.Error) and error.code in checked_codes:
+            if isinstance(error, pep257.Error) and error.code in checked_codes:
                 # NOTE(sigmavirus24): Fixes GitLab#3
                 message = '%s %s' % (error.code, error.short_desc)
                 yield (error.line, 0, message, type(self))
@@ -69,5 +73,5 @@ class pydocstyleChecker(object):
             self.filename = 'stdin'
             self.source = pep8.stdin_get_value()
         else:
-            with pydocstyle.tokenize_open(self.filename) as fd:
+            with pep257.tokenize_open(self.filename) as fd:
                 self.source = fd.read()

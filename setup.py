@@ -41,7 +41,7 @@ setup(
     keywords='PEP 257, pydocstyle, pep257, docstrings, flake8',
     entry_points={
         'flake8.extension': [
-            'DOC = flake8_docstrings:pydocstyleChecker',
+            'DOC = flake8_docstrings:pep257Checker',
         ],
     },
     install_requires=['flake8', 'pydocstyle'],
