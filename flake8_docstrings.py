@@ -1,18 +1,20 @@
 # -*- coding: utf-8 -*-
-"""Implementation of pep257 integration with Flake8.
+"""Implementation of pydocstyle integration with Flake8.
 
-pep257 docstrings convention needs error code and class parser for be
+pydocstyle docstrings convention needs error code and class parser for be
 included as module into flake8
 """
 import sys
 
 import pep8
 try:
-    import pycodestyle as pep257
+    import pydocstyle as pep257
+    module_name = 'pydocstyle'
 except ImportError:
     import pep257
+    module_name = 'pep257'
 
-__version__ = '0.2.6'
+__version__ = '1.0.0'
 __all__ = ['pep257Checker']
 
 
@@ -35,7 +37,9 @@ class pep257Checker(object):
     """Flake8 needs a class to check python file."""
 
     name = 'flake8-docstrings'
-    version = __version__ + ', pep257: {0}'.format(pep257.__version__)
+    version = __version__ + ', {0}: {1}'.format(
+        module_name, pep257.__version__
+    )
 
     STDIN_NAMES = set(['stdin', '-', '(none)', None])
 
@@ -55,7 +59,7 @@ class pep257Checker(object):
             return [EnvironError(err)]
 
     def run(self):
-        """Use directly check() api from pep257."""
+        """Use directly check() api from pydocstyle."""
         checked_codes = pep257.conventions.pep257
         for error in self._check_source():
             if isinstance(error, pep257.Error) and error.code in checked_codes:

@@ -1,6 +1,13 @@
 History/Changelog
 =================
 
+1.0.0
+-----
+
+- Switch dependency name to pydocstyle. pep257 was renamed to pydocstyle, this
+  update switches the requirement to that new package name. Since we're
+  swapping out dependencies, we've issued a major version bump.
+
 0.2.6
 -----
 

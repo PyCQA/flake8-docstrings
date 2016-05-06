@@ -24,7 +24,7 @@ def get_long_description():
 setup(
     name='flake8-docstrings',
     version=get_version(),
-    description="Extension for flake8 which uses pep257 to check docstrings",
+    description="Extension for flake8 which uses pydocstyle to check docstrings",
     long_description=get_long_description(),
     license='MIT License',
     author='Simon ANDRÉ',
@@ -38,13 +38,13 @@ setup(
                  'Programming Language :: Python :: 3',
                  'Operating System :: OS Independent',
                  'License :: OSI Approved :: MIT License'],
-    keywords='PEP 257, pep257, docstrings, flake8',
+    keywords='PEP 257, pydocstyle, pep257, docstrings, flake8',
     entry_points={
         'flake8.extension': [
             'DOC = flake8_docstrings:pep257Checker',
         ],
     },
-    install_requires=['flake8', 'pep257'],
+    install_requires=['flake8', 'pydocstyle'],
     provides=['flake8_docstrings'],
     py_modules=['flake8_docstrings'],
 )
