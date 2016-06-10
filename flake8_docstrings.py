@@ -60,12 +60,16 @@ class pep257Checker(object):
 
     def run(self):
         """Use directly check() api from pydocstyle."""
-        checked_codes = pep257.conventions.pep257
-        for error in self._check_source():
-            if isinstance(error, pep257.Error) and error.code in checked_codes:
-                # NOTE(sigmavirus24): Fixes GitLab#3
-                message = '%s %s' % (error.code, error.short_desc)
-                yield (error.line, 0, message, type(self))
+        cfg = pep257.ConfigurationParser()
+        cfg.parse()
+        files_to_check = dict(cfg.get_files_to_check())
+        if self.filename in files_to_check:
+            checked_codes = files_to_check[self.filename]
+            for error in self._check_source():
+                if isinstance(error, pep257.Error) and error.code in checked_codes:
+                    # NOTE(sigmavirus24): Fixes GitLab#3
+                    message = '%s %s' % (error.code, error.short_desc)
+                    yield (error.line, 0, message, type(self))
 
     def load_source(self):
         """Load the source for the specified file."""
