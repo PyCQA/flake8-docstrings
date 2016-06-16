@@ -8,11 +8,11 @@ import sys
 
 import pep8
 try:
-    import pycodestyle as pep257
+    import pydocstyle as pep257
 except ImportError:
     import pep257
 
-__version__ = '0.2.6'
+__version__ = '0.2.7'
 __all__ = ['pep257Checker']
 
 
