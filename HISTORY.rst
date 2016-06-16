@@ -8,6 +8,11 @@ History/Changelog
   update switches the requirement to that new package name. Since we're
   swapping out dependencies, we've issued a major version bump.
 
+0.2.7
+-----
+
+- Try to import pydocstyle (not pycodestyle) as pep257
+
 0.2.6
 -----
 
