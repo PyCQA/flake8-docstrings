@@ -6,7 +6,11 @@ included as module into flake8
 """
 import sys
 
-import pep8
+try:
+    import pycodestyle
+except ImportError:
+    import pep8 as pycodestyle
+
 try:
     import pydocstyle as pep257
 except ImportError:
@@ -67,7 +71,7 @@ class pep257Checker(object):
         """Load the source for the specified file."""
         if self.filename in self.STDIN_NAMES:
             self.filename = 'stdin'
-            self.source = pep8.stdin_get_value()
+            self.source = pycodestyle.stdin_get_value()
         else:
             with pep257.tokenize_open(self.filename) as fd:
                 self.source = fd.read()
