@@ -6,7 +6,11 @@ included as module into flake8
 """
 import sys
 
-import pycodestyle
+try:
+    import pycodestyle
+except ImportError:
+    import pep8 as pycodestyle
+
 try:
     import pydocstyle as pep257
 except ImportError:
