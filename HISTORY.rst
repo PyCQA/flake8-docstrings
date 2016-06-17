@@ -1,6 +1,12 @@
 History/Changelog
 =================
 
+0.2.8
+-----
+
+- Import either pycodestyle or pep8 to use ``stdin_get_value``.
+  This fixes the problem for newer Flake8's (2.6.0+) and older ones.
+
 0.2.7
 -----
 
