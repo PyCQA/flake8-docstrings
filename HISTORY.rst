@@ -1,6 +1,11 @@
 History/Changelog
 =================
 
+1.0.2
+-----
+
+- Use pycodestyle to get standard-in.
+
 1.0.1
 -----
 
