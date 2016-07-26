@@ -1,6 +1,11 @@
 History/Changelog
 =================
 
+1.0.1
+-----
+
+- Make sure this works out of the box (is enabled by default) with Flake8 3.0
+
 1.0.0
 -----
 
