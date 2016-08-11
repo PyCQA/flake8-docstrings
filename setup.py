@@ -44,7 +44,7 @@ setup(
             'D = flake8_docstrings:pep257Checker',
         ],
     },
-    install_requires=['flake8', 'pydocstyle'],
+    install_requires=['flake8', 'pydocstyle', 'flake8-polyfill'],
     provides=['flake8_docstrings'],
     py_modules=['flake8_docstrings'],
 )

@@ -6,6 +6,7 @@ included as module into flake8
 """
 import sys
 
+from flake8_polyfill import stdin
 import pycodestyle
 try:
     import pydocstyle as pep257
@@ -15,7 +16,9 @@ except ImportError:
     module_name = 'pep257'
 
 __version__ = '1.0.2'
-__all__ = ['pep257Checker']
+__all__ = ('pep257Checker',)
+
+stdin.monkey_patch('pycodestyle')
 
 
 class EnvironError(pep257.Error):
