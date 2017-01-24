@@ -15,7 +15,7 @@ except ImportError:
     import pep257
     module_name = 'pep257'
 
-__version__ = '1.0.2'
+__version__ = '1.0.3'
 __all__ = ('pep257Checker',)
 
 stdin.monkey_patch('pycodestyle')

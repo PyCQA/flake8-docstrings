@@ -1,6 +1,11 @@
 History/Changelog
 =================
 
+1.0.3
+-----
+
+- Use flake8-polyfill to get standard-in to handle Flake8 3.x and 2.x
+
 1.0.2
 -----
 
