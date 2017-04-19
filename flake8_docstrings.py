@@ -50,12 +50,19 @@ class pep257Checker(object):
         """Placeholder."""
         self.tree = tree
         self.filename = filename
-        self.checker = pep257.PEP257Checker()
+        self.checker = pep257.ConventionChecker()
         self.load_source()
 
     def _check_source(self):
         try:
-            return list(self.checker.check_source(self.source, self.filename))
+            # TODO: Naive fix for `pydocstyle 2.0.0` with default settings.
+            # Should probably add a proper setting so `ignore_decorators` can
+            # be set when caling through the CLI
+            return list(self.checker.check_source(
+                self.source,
+                self.filename,
+                ignore_decorators=None,
+            ))
         except pep257.AllError as err:
             return [AllError(err)]
         except EnvironmentError as err:
