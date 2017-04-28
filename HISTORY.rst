@@ -1,6 +1,11 @@
 History/Changelog
 =================
 
+1.1.0
+-----
+
+- Upgrade dependency on pydocstyle to 2.0.0
+
 1.0.3
 -----
 
