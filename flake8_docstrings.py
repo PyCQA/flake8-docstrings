@@ -22,18 +22,24 @@ stdin.monkey_patch('pycodestyle')
 
 
 class EnvironError(pep257.Error):
-    code = 'D998'
-    context = None
 
-    @property
-    def short_desc(self):
-        return sys.exc_info()[1]
+    def __init__(self, err):
+        super(EnvironError, self).__init__(
+            code='D998',
+            short_desc=err,
+            context=None,
+        )
 
 
 class AllError(pep257.Error):
-    code = 'D999'
-    short_desc = '__all__ was found to be a list or other mutable collection'
-    context = None
+
+    def __init__(self):
+        super(AllError, self).__init__(
+            code='D999',
+            short_desc='__all__ was found to be a list or other mutable '
+                       'collection',
+            context=None,
+        )
 
 
 class pep257Checker(object):
@@ -57,14 +63,14 @@ class pep257Checker(object):
         try:
             # TODO: Naive fix for `pydocstyle 2.0.0` with default settings.
             # Should probably add a proper setting so `ignore_decorators` can
-            # be set when caling through the CLI
+            # be set when calling through the CLI
             return list(self.checker.check_source(
                 self.source,
                 self.filename,
                 ignore_decorators=None,
             ))
-        except pep257.AllError as err:
-            return [AllError(err)]
+        except pep257.AllError:
+            return [AllError()]
         except EnvironmentError as err:
             return [EnvironError(err)]
 
