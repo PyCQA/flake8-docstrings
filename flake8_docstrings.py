@@ -46,7 +46,7 @@ class pep257Checker(object):
 
     STDIN_NAMES = set(['stdin', '-', '(none)', None])
 
-    def __init__(self, tree, filename='(none)', builtins=None):
+    def __init__(self, tree, filename='(none)'):
         """Placeholder."""
         self.tree = tree
         self.filename = filename
