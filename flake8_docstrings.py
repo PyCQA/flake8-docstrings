@@ -57,7 +57,7 @@ class pep257Checker(object):
         try:
             # TODO: Naive fix for `pydocstyle 2.0.0` with default settings.
             # Should probably add a proper setting so `ignore_decorators` can
-            # be set when caling through the CLI
+            # be set when calling through the CLI
             return list(self.checker.check_source(
                 self.source,
                 self.filename,
