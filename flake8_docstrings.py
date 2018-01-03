@@ -4,7 +4,6 @@
 pydocstyle docstrings convention needs error code and class parser for be
 included as module into flake8
 """
-import sys
 
 from flake8_polyfill import stdin
 import pycodestyle
@@ -22,18 +21,33 @@ stdin.monkey_patch('pycodestyle')
 
 
 class EnvironError(pep257.Error):
-    code = 'D998'
-    context = None
+
+    def __init__(self, err):
+        super(EnvironError, self).__init__(
+            code='D998',
+            short_desc='EnvironmentError: ' + str(err),
+            context=None,
+        )
 
     @property
-    def short_desc(self):
-        return sys.exc_info()[1]
+    def line(self):
+        """Return 0 as line number for EnvironmentError."""
+        return 0
 
 
 class AllError(pep257.Error):
-    code = 'D999'
-    short_desc = '__all__ was found to be a list or other mutable collection'
-    context = None
+
+    def __init__(self, err):
+        super(AllError, self).__init__(
+            code='D999',
+            short_desc=str(err).partition('\n')[0],
+            context=None,
+        )
+
+    @property
+    def line(self):
+        """pep257.AllError does not contain line number. Return 0 instead."""
+        return 0
 
 
 class pep257Checker(object):
@@ -57,20 +71,21 @@ class pep257Checker(object):
         try:
             # TODO: Naive fix for `pydocstyle 2.0.0` with default settings.
             # Should probably add a proper setting so `ignore_decorators` can
-            # be set when caling through the CLI
-            return list(self.checker.check_source(
+            # be set when calling through the CLI
+            for err in self.checker.check_source(
                 self.source,
                 self.filename,
                 ignore_decorators=None,
-            ))
+            ):
+                yield err
         except pep257.AllError as err:
-            return [AllError(err)]
+            yield AllError(err)
         except EnvironmentError as err:
-            return [EnvironError(err)]
+            yield EnvironError(err)
 
     def run(self):
         """Use directly check() api from pydocstyle."""
-        checked_codes = pep257.conventions.pep257
+        checked_codes = pep257.conventions.pep257 | {'D998', 'D999'}
         for error in self._check_source():
             if isinstance(error, pep257.Error) and error.code in checked_codes:
                 # NOTE(sigmavirus24): Fixes GitLab#3
