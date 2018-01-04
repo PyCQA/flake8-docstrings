@@ -1,6 +1,13 @@
 History/Changelog
 =================
 
+1.2.0
+-----
+
+- Fix EnvironError and AllError invocations
+
+- Avoid Flake8 warning for requesting ``builtins``
+
 1.1.0
 -----
 
