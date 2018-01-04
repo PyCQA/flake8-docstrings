@@ -6,7 +6,7 @@ flake8_.
 
 Simply install this extension::
 
-    pip install flake8_docstrings
+    pip install flake8-docstrings
 
 and run flake8.
 
