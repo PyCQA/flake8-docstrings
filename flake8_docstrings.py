@@ -5,6 +5,7 @@ pydocstyle docstrings convention needs error code and class parser for be
 included as module into flake8
 """
 
+import sys
 from flake8_polyfill import stdin
 import pycodestyle
 try:
@@ -13,6 +14,11 @@ try:
 except ImportError:
     import pep257
     module_name = 'pep257'
+
+if sys.version_info >= (3, 2):
+    from tokenize import open as tokenize_open
+else:
+    tokenize_open = open
 
 __version__ = '1.3.0'
 __all__ = ('pep257Checker',)
@@ -98,5 +104,5 @@ class pep257Checker(object):
             self.filename = 'stdin'
             self.source = pycodestyle.stdin_get_value()
         else:
-            with pep257.tokenize_open(self.filename) as fd:
+            with tokenize_open(self.filename) as fd:
                 self.source = fd.read()
