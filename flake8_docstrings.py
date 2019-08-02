@@ -20,7 +20,7 @@ if sys.version_info >= (3, 2):
 else:
     tokenize_open = open
 
-__version__ = '1.3.0'
+__version__ = '1.3.1'
 __all__ = ('pep257Checker',)
 
 stdin.monkey_patch('pycodestyle')
