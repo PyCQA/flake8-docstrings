@@ -13,6 +13,12 @@ try:
 except ImportError:
     import pep257
     module_name = 'pep257'
+try:
+    import tokenize
+    tokenize_open = tokenize.open
+except AttributeError:
+    tokenize_open = open
+
 
 __version__ = '1.3.0'
 __all__ = ('pep257Checker',)
@@ -98,5 +104,5 @@ class pep257Checker(object):
             self.filename = 'stdin'
             self.source = pycodestyle.stdin_get_value()
         else:
-            with pep257.tokenize_open(self.filename) as fd:
+            with tokenize_open(self.filename) as fd:
                 self.source = fd.read()
