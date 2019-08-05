@@ -10,8 +10,18 @@ Simply install this extension::
 
 and run flake8.
 
+You can set the pydocstyle convention_ at the command line using::
+
+    $ flake8 --docstring-convention numpy ...
+
+Or, adding ``docstring-convention=numpy`` to your flake8 configuration file.
+The available set of conventions depends on the version of pydocstyle installed.
+The default is ``pep257``, v2.0.0 added ``numpy`` (for the numpydoc standard),
+while ``v4.0.0`` added ``google``.
+
 Report any issues on our `bug tracker`_.
 
 .. _pydocstyle: https://github.com/pycqa/pydocstyle
 .. _flake8: https://gitlab.com/pycqa/flake8
+.. _convention: http://www.pydocstyle.org/en/latest/error_codes.html#default-conventions
 .. _bug tracker: https://gitlab.com/pycqa/flake8-docstrings/issues
