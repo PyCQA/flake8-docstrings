@@ -79,7 +79,7 @@ class pep257Checker(object):
         parser.add_option(
              '--docstring-convention', action='store', parse_from_config=True,
              default="pep257", choices=sorted(pep257.conventions),
-             help="pydocstrings convention (e.g. 'pep257', 'numpy', 'google')"
+             help="pydocstyle docstring convention, default 'pep257'."
         )
 
     @classmethod
