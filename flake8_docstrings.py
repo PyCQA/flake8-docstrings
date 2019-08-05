@@ -73,6 +73,20 @@ class pep257Checker(object):
         self.checker = pep257.ConventionChecker()
         self.load_source()
 
+    @classmethod
+    def add_options(cls, parser):
+        """Add plugin configuration option to flake8."""
+        parser.add_option(
+             '--docstring-convention', action='store', parse_from_config=True,
+             default="pep257", choices=sorted(pep257.conventions),
+             help="pydocstyle docstring convention, default 'pep257'."
+        )
+
+    @classmethod
+    def parse_options(cls, options):
+        """Parse the configuration options given to flake8."""
+        cls.convention = options.docstring_convention
+
     def _check_source(self):
         try:
             # TODO: Naive fix for `pydocstyle 2.0.0` with default settings.
@@ -91,7 +105,7 @@ class pep257Checker(object):
 
     def run(self):
         """Use directly check() api from pydocstyle."""
-        checked_codes = pep257.conventions.pep257 | {'D998', 'D999'}
+        checked_codes = pep257.conventions[self.convention] | {'D998', 'D999'}
         for error in self._check_source():
             if isinstance(error, pep257.Error) and error.code in checked_codes:
                 # NOTE(sigmavirus24): Fixes GitLab#3
