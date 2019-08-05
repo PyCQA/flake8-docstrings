@@ -105,9 +105,6 @@ class pep257Checker(object):
 
     def run(self):
         """Use directly check() api from pydocstyle."""
-        # pydocstyle.conventions is a subclass of dict
-        # available conventions depends on the version
-        # but already pre-validated the user's input
         checked_codes = pep257.conventions[self.convention] | {'D998', 'D999'}
         for error in self._check_source():
             if isinstance(error, pep257.Error) and error.code in checked_codes:
