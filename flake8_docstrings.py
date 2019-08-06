@@ -6,8 +6,6 @@ included as module into flake8
 """
 
 import sys
-from flake8_polyfill import stdin
-import pycodestyle
 try:
     import pydocstyle as pep257
     module_name = 'pydocstyle'
@@ -22,8 +20,6 @@ else:
 
 __version__ = '1.3.1'
 __all__ = ('pep257Checker',)
-
-stdin.monkey_patch('pycodestyle')
 
 
 class EnvironError(pep257.Error):
@@ -60,26 +56,22 @@ class pep257Checker(object):
     """Flake8 needs a class to check python file."""
 
     name = 'flake8-docstrings'
-    version = __version__ + ', {0}: {1}'.format(
-        module_name, pep257.__version__
-    )
+    version = '{}, {}: {}'.format(__version__, module_name, pep257.__version__)
 
-    STDIN_NAMES = set(['stdin', '-', '(none)', None])
-
-    def __init__(self, tree, filename='(none)'):
+    def __init__(self, tree, filename, lines):
         """Placeholder."""
         self.tree = tree
         self.filename = filename
         self.checker = pep257.ConventionChecker()
-        self.load_source()
+        self.source = ''.join(lines)
 
     @classmethod
     def add_options(cls, parser):
         """Add plugin configuration option to flake8."""
         parser.add_option(
-             '--docstring-convention', action='store', parse_from_config=True,
-             default="pep257", choices=sorted(pep257.conventions),
-             help="pydocstyle docstring convention, default 'pep257'."
+            '--docstring-convention', action='store', parse_from_config=True,
+            default="pep257", choices=sorted(pep257.conventions),
+            help="pydocstyle docstring convention, default 'pep257'."
         )
 
     @classmethod
@@ -111,12 +103,3 @@ class pep257Checker(object):
                 # NOTE(sigmavirus24): Fixes GitLab#3
                 message = '%s %s' % (error.code, error.short_desc)
                 yield (error.line, 0, message, type(self))
-
-    def load_source(self):
-        """Load the source for the specified file."""
-        if self.filename in self.STDIN_NAMES:
-            self.filename = 'stdin'
-            self.source = pycodestyle.stdin_get_value()
-        else:
-            with tokenize_open(self.filename) as fd:
-                self.source = fd.read()
