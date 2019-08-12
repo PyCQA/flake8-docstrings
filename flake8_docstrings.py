@@ -22,6 +22,11 @@ __version__ = '1.3.1'
 __all__ = ('pep257Checker',)
 
 
+class _ContainsAll(object):
+    def __contains__(self, code):  # type: (str) -> bool
+        return True
+
+
 class EnvironError(pep257.Error):
 
     def __init__(self, err):
@@ -70,8 +75,13 @@ class pep257Checker(object):
         """Add plugin configuration option to flake8."""
         parser.add_option(
             '--docstring-convention', action='store', parse_from_config=True,
-            default="pep257", choices=sorted(pep257.conventions),
-            help="pydocstyle docstring convention, default 'pep257'."
+            default="pep257", choices=sorted(pep257.conventions) + ['all'],
+            help=(
+                "pydocstyle docstring convention, default 'pep257'. "
+                "Use the special value 'all' to enable all codes (note: "
+                "some codes are conflicting so you'll need to then exclude "
+                "those)."
+            )
         )
 
     @classmethod
@@ -97,7 +107,12 @@ class pep257Checker(object):
 
     def run(self):
         """Use directly check() api from pydocstyle."""
-        checked_codes = pep257.conventions[self.convention] | {'D998', 'D999'}
+        if self.convention == 'all':
+            checked_codes = _ContainsAll()
+        else:
+            checked_codes = (
+                pep257.conventions[self.convention] | {'D998', 'D999'}
+            )
         for error in self._check_source():
             if isinstance(error, pep257.Error) and error.code in checked_codes:
                 # NOTE(sigmavirus24): Fixes GitLab#3
