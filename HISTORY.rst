@@ -1,6 +1,21 @@
 History/Changelog
 =================
 
+1.4.0
+-----
+
+- Add ``--docstring-convention`` option which allows selection of conventions
+  besides the default ``pep257``.  Available options are based on those
+  available from ``pydocstyle`` and are currently ``pep257``, ``google``, and
+  ``numpy``.  ``flake8-docstrings`` also adds a special ``all`` docstring
+  convention which will enable all rules from ``pydocstyle``.  Note that
+  ``pydocstyle`` defines some conflicting rules so you'll want to use
+  ``ignore`` / ``extend-ignore`` when selecting ``docstring-convention = all``
+
+- Bump minimum flake8 version to 3
+
+- Fix proper handling of ``stdin`` via ``--stdin-display-name``
+
 1.3.1
 -----
 
