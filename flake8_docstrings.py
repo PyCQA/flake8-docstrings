@@ -5,6 +5,7 @@ pydocstyle docstrings convention needs error code and class parser for be
 included as module into flake8
 """
 
+import re
 import sys
 try:
     import pydocstyle as pep257
@@ -83,21 +84,35 @@ class pep257Checker(object):
                 "those)."
             )
         )
+        parser.add_option(
+            "--ignore-decorators",
+            action="store",
+            parse_from_config=True,
+            default=None,
+            help=(
+                "pydocstyle ignore-decorators regular expression, "
+                "default None. "
+                "Ignore any functions or methods that are decorated by "
+                "a function with a name fitting this regular expression. "
+                "The default is not ignore any decorated functions. "
+            ),
+        )
 
     @classmethod
     def parse_options(cls, options):
         """Parse the configuration options given to flake8."""
         cls.convention = options.docstring_convention
+        cls.ignore_decorators = (
+            re.compile(options.ignore_decorators) if options.ignore_decorators
+            else None
+        )
 
     def _check_source(self):
         try:
-            # TODO: Naive fix for `pydocstyle 2.0.0` with default settings.
-            # Should probably add a proper setting so `ignore_decorators` can
-            # be set when calling through the CLI
             for err in self.checker.check_source(
                 self.source,
                 self.filename,
-                ignore_decorators=None,
+                ignore_decorators=self.ignore_decorators,
             ):
                 yield err
         except pep257.AllError as err:
