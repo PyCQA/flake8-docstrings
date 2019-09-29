@@ -5,7 +5,7 @@ pydocstyle docstrings convention needs error code and class parser for be
 included as module into flake8
 """
 
-from re import compile as re
+import re
 import sys
 try:
     import pydocstyle as pep257
@@ -103,7 +103,7 @@ class pep257Checker(object):
         """Parse the configuration options given to flake8."""
         cls.convention = options.docstring_convention
         cls.ignore_decorators = (
-            re(options.ignore_decorators) if options.ignore_decorators
+            re.compile(options.ignore_decorators) if options.ignore_decorators
             else None
         )
 
