@@ -1,6 +1,12 @@
 History/Changelog
 =================
 
+1.5.0
+-----
+
+- Add ``--ignore-decorators`` option which allows functions with a specific
+  decorator to ignore error codes.
+
 1.4.0
 -----
 
