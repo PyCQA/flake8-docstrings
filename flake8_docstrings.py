@@ -65,7 +65,7 @@ class pep257Checker(object):
     version = '{}, {}: {}'.format(__version__, module_name, pep257.__version__)
 
     def __init__(self, tree, filename, lines):
-        """Placeholder."""
+        """Initialize the checker."""
         self.tree = tree
         self.filename = filename
         self.checker = pep257.ConventionChecker()
