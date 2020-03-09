@@ -24,3 +24,7 @@ python36:
 python37:
   image: python:3.7
   script: tox -e py37
+
+python38:
+  image: python:3.8
+  script: tox -e py38
