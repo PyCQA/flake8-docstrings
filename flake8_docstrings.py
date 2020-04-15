@@ -28,6 +28,23 @@ class _ContainsAll(object):
         return True
 
 
+class CheckerError(pep257.Error):
+    def __init__(self, err, filename):
+        super(CheckerError, self).__init__(
+            code='D997',
+            short_desc='CheckerError: "' + module_name + '" failed to '
+                       'parse "' + str(filename) + '". You may want to '
+                       'report this to the maintainers of that package. '
+                       'The original exception was: ' + str(err),
+            context=None,
+        )
+
+    @property
+    def line(self):
+        """Can't get line no. that crashed checker, in general, so return 0."""
+        return 0
+
+
 class EnvironError(pep257.Error):
 
     def __init__(self, err):
@@ -119,6 +136,8 @@ class pep257Checker(object):
             yield AllError(err)
         except EnvironmentError as err:
             yield EnvironError(err)
+        except Exception as err:
+            yield CheckerError(err, self.filename)
 
     def run(self):
         """Use directly check() api from pydocstyle."""
