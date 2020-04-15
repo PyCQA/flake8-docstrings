@@ -19,6 +19,8 @@ The available set of conventions depends on the version of pydocstyle installed.
 The default is ``pep257``, pydocstyle v2.0.0 added ``numpy`` (for the numpydoc
 standard), while pydocstyle v4.0.0 added ``google``.
 
+In order to choose a custom list of error codes, simply use the special value ``docstring-convention=all``, then choose the codes you want checked using flake8_'s built-in ``--ignore``/``--select`` functionality.
+
 Report any issues on our `bug tracker`_.
 
 .. _pydocstyle: https://github.com/pycqa/pydocstyle
