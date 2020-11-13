@@ -107,13 +107,24 @@ class pep257Checker(object):
             else None
         )
 
-    def _check_source(self):
+    def _checker_check_source(self):
         try:
-            for err in self.checker.check_source(
+            return self.checker.check_source(
                 self.source,
                 self.filename,
                 ignore_decorators=self.ignore_decorators,
-            ):
+                ignore_inline_noqa=True,
+            )
+        except TypeError:
+            return self.checker.check_source(
+                self.source,
+                self.filename,
+                ignore_decorators=self.ignore_decorators,
+            )
+
+    def _check_source(self):
+        try:
+            for err in self._checker_check_source():
                 yield err
         except pep257.AllError as err:
             yield AllError(err)
