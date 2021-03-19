@@ -19,7 +19,7 @@ if sys.version_info >= (3, 2):
 else:
     tokenize_open = open
 
-__version__ = '1.5.0'
+__version__ = '1.6.0'
 __all__ = ('pep257Checker',)
 
 

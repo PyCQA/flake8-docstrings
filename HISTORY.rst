@@ -1,6 +1,11 @@
 History/Changelog
 =================
 
+1.6.0
+-----
+
+- Fix ``--ignore-noqa`` by disabling ``pydocstyle``'s ``noqa`` handling.
+
 1.5.0
 -----
 
