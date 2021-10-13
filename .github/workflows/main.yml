@@ -34,9 +34,6 @@ jobs:
         # misc
         - os: ubuntu-latest
           python: 3.9
-          toxenv: docs
-        - os: ubuntu-latest
-          python: 3.9
           toxenv: flake8
     runs-on: ${{ matrix.os }}
     steps:
