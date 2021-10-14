@@ -34,7 +34,7 @@ jobs:
         # misc
         - os: ubuntu-latest
           python: 3.9
-          toxenv: flake8
+          toxenv: flake8,pre-commit
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
