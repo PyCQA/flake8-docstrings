@@ -4,7 +4,6 @@ pydocstyle docstrings convention needs error code and class parser for be
 included as module into flake8
 """
 import re
-import sys
 
 try:
     import pydocstyle as pep257
@@ -14,8 +13,6 @@ except ImportError:
     import pep257
 
     module_name = "pep257"
-
-from tokenize import open as tokenize_open
 
 __version__ = "1.6.0"
 __all__ = ("pep257Checker",)
