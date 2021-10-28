@@ -93,6 +93,17 @@ class pep257Checker:
                 "The default is not ignore any decorated functions. "
             ),
         )
+        parser.add_option(
+            "--docstring-ignore",
+            default=None,
+            parse_from_config=True,
+            type=str,
+            help=(
+                "Comma separated list of ignore patterns of directories "
+                "or files. Files that match at least one of the pattern, "
+                "will not have its docstrings checked."
+            ),
+        )
 
     @classmethod
     def parse_options(cls, options):
@@ -103,6 +114,11 @@ class pep257Checker:
             if options.ignore_decorators
             else None
         )
+        if options.docstring_ignore is not None:
+            ignore = options.docstring_ignore.split(",")
+        else:
+            ignore = None
+        cls.docstring_ignore = ignore
 
     def _call_check_source(self):
         try:
@@ -130,6 +146,11 @@ class pep257Checker:
 
     def run(self):
         """Use directly check() api from pydocstyle."""
+        # if the file checked matches an ignore pattern, don't parse it
+        if self.docstring_ignore is not None:
+            for pattern in self.docstring_ignore:
+                if pattern in self.filename:
+                    return
         if self.convention == "all":
             checked_codes = _ContainsAll()
         else:
