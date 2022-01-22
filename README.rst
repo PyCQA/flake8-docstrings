@@ -26,6 +26,6 @@ flake8_'s built-in ``--ignore``/``--select`` functionality.
 Report any issues on our `bug tracker`_.
 
 .. _pydocstyle: https://github.com/pycqa/pydocstyle
-.. _flake8: https://gitlab.com/pycqa/flake8
+.. _flake8: https://github.com/pycqa/flake8
 .. _convention: http://www.pydocstyle.org/en/latest/error_codes.html#default-conventions
-.. _bug tracker: https://gitlab.com/pycqa/flake8-docstrings/issues
+.. _bug tracker: https://github.com/pycqa/flake8-docstrings/issues
