@@ -13,33 +13,21 @@ jobs:
         include:
         # linux
         - os: ubuntu-latest
-          python: 3.6
-          toxenv: py
-        - os: ubuntu-latest
           python: 3.7
-          toxenv: py
         - os: ubuntu-latest
           python: 3.8
-          toxenv: py
         - os: ubuntu-latest
           python: 3.9
-          toxenv: py
         - os: ubuntu-latest
-          python: '3.10.0'
-          toxenv: py
+          python: '3.10'
         # windows
         - os: windows-latest
-          python: 3.6
-          toxenv: py
-        # misc
-        - os: ubuntu-latest
-          python: 3.9
-          toxenv: pre-commit
+          python: 3.7
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python }}
     - run: python -mpip install --upgrade setuptools pip tox virtualenv
-    - run: tox -e ${{ matrix.toxenv }}
+    - run: tox -e py
