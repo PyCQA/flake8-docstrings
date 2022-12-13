@@ -11,7 +11,7 @@ repos:
     rev: v3.9.0
     hooks:
     -   id: reorder-python-imports
-        args: [--application-directories, '.:src', --py36-plus]
+        args: [--application-directories, '.:src', --py37-plus]
 -   repo: https://github.com/psf/black
     rev: 22.10.0
     hooks:
@@ -21,9 +21,9 @@ repos:
     rev: v3.3.0
     hooks:
     -   id: pyupgrade
-        args: [--py36-plus]
+        args: [--py37-plus]
 -   repo: https://github.com/asottile/setup-cfg-fmt
     rev: v2.2.0
     hooks:
     -   id: setup-cfg-fmt
-        args: [--min-py3-version, '3.6']
+        args: [--min-py3-version, '3.7']
