@@ -16,7 +16,7 @@ try:
     pydocstyle_version = tuple(
         int(num) for num in pep257.__version__.split(".")
     )
-    supports_ignore_inline_noqa = pydocstyle_version > (5, 1, 1)
+    supports_ignore_inline_noqa = pydocstyle_version >= (6, 0, 0)
     supports_property_decorators = pydocstyle_version >= (6, 2, 0)
     supports_ignore_self_only_init = pydocstyle_version >= (6, 3, 0)
 except ImportError:
