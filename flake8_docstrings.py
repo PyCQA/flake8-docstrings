@@ -5,10 +5,18 @@ included as module into flake8
 """
 import re
 
+supports_ignore_inline_noqa = False
+supports_property_decorators = False
+supports_ignore_self_only_init = False
 try:
     import pydocstyle as pep257
 
     module_name = "pydocstyle"
+
+    pydocstyle_version = tuple(int(num) for num in pep257.__version__.split("."))
+    supports_ignore_inline_noqa = pydocstyle_version > (5, 1, 1)
+    supports_property_decorators = pydocstyle_version >= (6, 2, 0)
+    supports_ignore_self_only_init = pydocstyle_version >= (6, 3, 0)
 except ImportError:
     import pep257
 
@@ -94,6 +102,31 @@ class pep257Checker:
             ),
         )
 
+        if supports_property_decorators:
+            from pydocstyle.config import ConfigurationParser
+
+            default_property_decorators = ConfigurationParser.DEFAULT_PROPERTY_DECORATORS
+            parser.add_option(
+                "--property-decorators",
+                action="store",
+                parse_from_config=True,
+                default=default_property_decorators,
+                help=(
+                    "consider any method decorated with one of these "
+                    "decorators as a property, and consequently allow "
+                    "a docstring which is not in imperative mood; default "
+                    f"is --property-decorators='{default_property_decorators}'"
+                ),
+            )
+
+        if supports_ignore_self_only_init:
+            parser.add_option(
+                "--ignore-self-only-init",
+                action="store_true",
+                parse_from_config=True,
+                help="ignore __init__ methods which only have a self param.",
+            )
+
     @classmethod
     def parse_options(cls, options):
         """Parse the configuration options given to flake8."""
@@ -103,21 +136,30 @@ class pep257Checker:
             if options.ignore_decorators
             else None
         )
+        if supports_property_decorators:
+            cls.property_decorators = options.property_decorators
+        if supports_ignore_self_only_init:
+            cls.ignore_self_only_init = options.ignore_self_only_init
 
     def _call_check_source(self):
-        try:
-            return self.checker.check_source(
-                self.source,
-                self.filename,
-                ignore_decorators=self.ignore_decorators,
-                ignore_inline_noqa=True,
+        check_source_kwargs = {}
+        if supports_ignore_inline_noqa:
+            check_source_kwargs["ignore_inline_noqa"] = True
+        if supports_property_decorators:
+            check_source_kwargs["property_decorators"] = (
+                set(self.property_decorators.split(","))
+                if self.property_decorators
+                else None
             )
-        except TypeError:  # for versions of pydocstyle 5.1.1 and below
-            return self.checker.check_source(
-                self.source,
-                self.filename,
-                ignore_decorators=self.ignore_decorators,
-            )
+        if supports_ignore_self_only_init:
+            check_source_kwargs["ignore_self_only_init"] = self.ignore_self_only_init
+
+        return self.checker.check_source(
+            self.source,
+            self.filename,
+            ignore_decorators=self.ignore_decorators,
+            **check_source_kwargs
+        )
 
     def _check_source(self):
         try:
