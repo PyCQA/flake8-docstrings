@@ -13,7 +13,9 @@ try:
 
     module_name = "pydocstyle"
 
-    pydocstyle_version = tuple(int(num) for num in pep257.__version__.split("."))
+    pydocstyle_version = tuple(
+        int(num) for num in pep257.__version__.split(".")
+    )
     supports_ignore_inline_noqa = pydocstyle_version > (5, 1, 1)
     supports_property_decorators = pydocstyle_version >= (6, 2, 0)
     supports_ignore_self_only_init = pydocstyle_version >= (6, 3, 0)
@@ -105,7 +107,9 @@ class pep257Checker:
         if supports_property_decorators:
             from pydocstyle.config import ConfigurationParser
 
-            default_property_decorators = ConfigurationParser.DEFAULT_PROPERTY_DECORATORS
+            default_property_decorators = (
+                ConfigurationParser.DEFAULT_PROPERTY_DECORATORS
+            )
             parser.add_option(
                 "--property-decorators",
                 action="store",
@@ -152,13 +156,15 @@ class pep257Checker:
                 else None
             )
         if supports_ignore_self_only_init:
-            check_source_kwargs["ignore_self_only_init"] = self.ignore_self_only_init
+            check_source_kwargs[
+                "ignore_self_only_init"
+            ] = self.ignore_self_only_init
 
         return self.checker.check_source(
             self.source,
             self.filename,
             ignore_decorators=self.ignore_decorators,
-            **check_source_kwargs
+            **check_source_kwargs,
         )
 
     def _check_source(self):
