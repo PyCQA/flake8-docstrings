@@ -1,6 +1,11 @@
 History/Changelog
 =================
 
+1.7.0
+-----
+
+- Add ``--property-decorators`` option.
+
 1.6.0
 -----
 
