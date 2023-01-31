@@ -14,7 +14,7 @@ try:
     module_name = "pydocstyle"
 
     pydocstyle_version = tuple(
-        int(num) for num in pep257.__version__.split(".")
+        int(num) if num.isdigit() else 0 for num in pep257.__version__.split(".")
     )
     supports_ignore_inline_noqa = pydocstyle_version >= (6, 0, 0)
     supports_property_decorators = pydocstyle_version >= (6, 2, 0)
