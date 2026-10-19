@@ -3,6 +3,7 @@
 pydocstyle docstrings convention needs error code and class parser for be
 included as module into flake8
 """
+
 import re
 
 supports_ignore_inline_noqa = False
@@ -156,9 +157,9 @@ class pep257Checker:
                 else None
             )
         if supports_ignore_self_only_init:
-            check_source_kwargs[
-                "ignore_self_only_init"
-            ] = self.ignore_self_only_init
+            check_source_kwargs["ignore_self_only_init"] = (
+                self.ignore_self_only_init
+            )
 
         return self.checker.check_source(
             self.source,
